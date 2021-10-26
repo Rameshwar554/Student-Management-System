@@ -1,1 +1,1 @@
-web : gunicorn sms:sms
+web gunicorn sms:sms
