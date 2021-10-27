@@ -181,9 +181,8 @@ def generateOTP():
 
 def getOTPApi(number):
     account_sid = 'AC1db974f60f7af09f632246b976cdda6e'
-    auth_token = '27154de443edca643fd2df6ec638fb1d'
     # auth_token = 'dd112f23765598165d08174e3c43d51a'  #(first token not valid now)
-    # auth_token = '7d7cb7e946a27b6b562421fb57b1420f' #(second token not valid now)
+    auth_token = '7d7cb7e946a27b6b562421fb57b1420f' #(second token not valid now)
     client = Client(account_sid, auth_token)
     otp = generateOTP()
     body = 'Your OTP is ' + str(otp)
