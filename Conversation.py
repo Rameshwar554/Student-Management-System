@@ -9,7 +9,9 @@ pairs = [
     ["bye", ["bye! will see you soon"]],
     ["how to login", ["First verfiy yourself through mobile otp or email otp"]],
     ["i love you bot", ["Awesome. That makes me feel good."]],
-    ["(sorry|my bad)", ["It's okay."]]
+    ["(sorry|my bad)", ["It's okay."]],
+    ["how are you ?", ["I'm doing good and How about You ?", ]],
+    ["(.*) age?", ["I'm a computer program dude and Seriously you are asking me this?"]],
 
 ]
 

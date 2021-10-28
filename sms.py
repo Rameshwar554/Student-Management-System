@@ -1,6 +1,7 @@
 # STUDENT MANAGEMENT SYSTEM
 # WITH ORACLE, CRUD operation using REST API
 
+# from functools import wraps
 from flask import *
 from flask_sqlalchemy import SQLAlchemy, request
 from twilio.rest import Client                 # for mobile otp
@@ -13,6 +14,7 @@ import random
 sms = Flask(__name__)
 mail = Mail(sms)
 sms.secret_key = 'otp'
+
 
 # app.config[url] = value
 sms.config['SQLALCHEMY_DATABASE_URI'] = 'oracle://system:system@127.0.0.1:1521/xe'
@@ -41,8 +43,19 @@ def Welcomepage():
     return render_template("Welcome.html")
 
 
+# def login_required(test):
+#     @wraps(test)
+#     def wrap(*args, **kwargs):
+#         if 'logged_in' in session:
+#             return test(*args, **kwargs)
+#         else:
+#             return redirect(url_for('home'))
+#     return wrap
+
+
 # ADDING STUDENT
 @sms.route("/addstuinfo", methods=['GET', 'POST'])
+# @login_required
 def stuInfo():
     if request.method == 'POST':
         stuid = request.form.get('stuid')
@@ -121,6 +134,13 @@ def update_info(stuid):
     return render_template("updaterest.html", student=student)
 
 
+@sms.route("/logout")
+def logout():
+    if "user_id2" in session:
+        session.pop("user_id2", None)
+    return render_template("student_login.html")
+
+
 ################################## DISPLAY ##################################################################
 
 # DISPLAY ALL DATA IN ONE PAGE AND SEARCH A PARTICULAR STUDENT
@@ -181,8 +201,8 @@ def generateOTP():
 
 def getOTPApi(number):
     account_sid = 'AC1db974f60f7af09f632246b976cdda6e'
-    # auth_token = 'dd112f23765598165d08174e3c43d51a'  #(first token not valid now)
-    auth_token = '7d7cb7e946a27b6b562421fb57b1420f' #(second token not valid now)
+    auth_token = 'dd112f23765598165d08174e3c43d51a'  #(first token not valid now)
+    # auth_token = '7d7cb7e946a27b6b562421fb57b1420f' #(second token not valid now)
     client = Client(account_sid, auth_token)
     otp = generateOTP()
     body = 'Your OTP is ' + str(otp)
